@@ -1,14 +1,7 @@
-<template>
-  <hr/>
-  <h1>{{text}}</h1>
-  <hr/>
-  <router-view />
-  <router-link to="/about">
-    about
-  </router-link>
-  <router-link to="/home">
-    index
-  </router-link>
+<template lang="pug">
+h1 {{text}}
+router-link(to="/about") about
+router-link(to="/home") index
 </template>
 
 <script setup>
