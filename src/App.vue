@@ -20,5 +20,9 @@ const text = import.meta.env.VITE_API_HOST;
 // Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
 </script>
 
-<style>
+<style lang="scss">
+$color: red;
+h1 {
+  color: $color;
+}
 </style>
