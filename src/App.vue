@@ -1,7 +1,11 @@
 <template>
-  <router-view></router-view>
-  <router-link to="/about">about</router-link>
-  <router-link to="/home">index</router-link>
+  <router-view />
+  <router-link to="/about">
+    about
+  </router-link>
+  <router-link to="/home">
+    index
+  </router-link>
 </template>
 
 <script setup>
