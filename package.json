@@ -2,17 +2,18 @@
   "name": "vite-kaiying",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode dev",
     "build": "vite build --mode production",
     "serve": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .eslintignore .",
     "fix": "eslint --fix --ext .js,.vue --ignore-path .eslintignore ."
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "path": "^0.12.7",
     "vue": "^3.0.5",
-    "vue-router": "^4.0.5",
-    "vue-cli-plugin-pug": "^2.0.0"
+    "vue-cli-plugin-pug": "^2.0.0",
+    "vue-router": "^4.0.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.1",
