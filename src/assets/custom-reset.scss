@@ -1,0 +1,15 @@
+
+// 移除 mobile web 會自己填灰色的問題
+button {
+  background: none;
+}
+
+// 清除 input box 在 focus 時，瀏覽器自己給的樣式。
+input:focus, select:focus {
+  outline: none;
+}
+select {
+  border-radius: unset;
+  border: none;
+  background: none;
+}

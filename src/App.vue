@@ -1,9 +1,10 @@
 <template lang="pug">
-h1 Axios
-h2 {{url}}
-h2 {{res()}}
-router-link(to="/about") about
-router-link(to="/home") index
+.container
+  h1 Axios
+  h2 {{url}}
+  h2 {{res()}}
+  router-link(to="/about") about
+  router-link(to="/home") index
 </template>
 
 <script setup>
