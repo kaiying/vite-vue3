@@ -12,15 +12,15 @@ module.exports = {
   extends: [
     // add more generic rulesets here, such as:
     // "eslint:recommended",
-    "plugin:vue/vue3-recommended",
+    'plugin:vue/vue3-recommended',
     'airbnb-base',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
     // "plugin:vue/recommended" // Use this if you are using Vue.js 2.x.
   ],
   plugins: ['vue'],
   rules: {
     // override/add rules settings here, such as:
-    "vue/no-multiple-template-root": "off",
+    'vue/no-multiple-template-root': 'off',
     'prettier/prettier': 'error',
     'no-console': 'off',
     'import/no-unresolved': 'off',
@@ -36,4 +36,4 @@ module.exports = {
     'import/extensions': 'off',
     'no-return-assign': 'off',
   },
-}
+};
