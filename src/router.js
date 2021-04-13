@@ -11,6 +11,11 @@ const routes = [
     name: 'About',
     component: () => import('@/src/pages/about.vue'),
   },
+  {
+    path: "/recommends",
+    name: "recommends",
+    component: () => import('@/src/pages/recommends.vue'),
+  },
 ];
 
 export default createRouter({

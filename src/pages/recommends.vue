@@ -1,11 +1,13 @@
 <template lang="pug">
-h1 index
+h1 recommends
 </template>
 
 <script>
 export default {
-  name: 'Home',
-};
+name: "recommends"
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -5,6 +5,7 @@
   h2 {{res()}}
   router-link(to="/about") about
   router-link(to="/home") index
+  router-link(to="/recommends") recommends
 </template>
 
 <script setup>
