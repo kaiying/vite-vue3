@@ -3,6 +3,9 @@
   h1 Axios
   h2 {{url}}
   h2 {{res()}}
+  hr
+  router-view
+  hr
   router-link(to="/about") about
   router-link(to="/home") index
   router-link(to="/recommends") recommends
