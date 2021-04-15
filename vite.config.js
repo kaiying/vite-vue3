@@ -3,8 +3,6 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import LodashWebpackPlugin from 'lodash-webpack-plugin';
 
-console.log(resolve(__dirname, ''));
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), new LodashWebpackPlugin({ function: true })],
