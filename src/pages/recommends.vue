@@ -4,10 +4,8 @@ h1 recommends
 
 <script>
 export default {
-name: "recommends"
-}
+  name: 'Recommends',
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
