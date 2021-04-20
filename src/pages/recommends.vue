@@ -11,7 +11,8 @@
   form.d-flex.w-100
     input.form-control.w-75(v-model="searchKeywords" @keydown="keyDown")
     button.btn.btn-secondary -x-) |||
-auto-complete-list(:list="recommendList" :keyword="searchKeywords")
+.row.col-6
+  auto-complete-list.w-75(:list="recommendList" :keyword="searchKeywords")
 </template>
 
 <script>

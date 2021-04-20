@@ -42,4 +42,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+div {
+  border: darkgray 1px solid;
+}
+.hover {
+  background-color: aquamarine;
+}
+</style>
