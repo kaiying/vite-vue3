@@ -8,11 +8,12 @@
     span hover Index
     h4 {{hoverIndex}}
 .row.col-6
-  form.d-flex.w-100
-    input.form-control.w-75(v-model="searchKeywords" @keydown="keyDown")
+  form.d-flex.w-100(@submit="submitStopping")
+    input.form-control.w-75(v-model="searchKeywords"
+      @keydown="keyDown" @keyup="keyUp")
     button.btn.btn-secondary -x-) |||
 .row.col-6
-  auto-complete-list.w-75(:list="recommendList" :keyword="searchKeywords" :modelValue="hoverIndex"
+  auto-complete-list.w-75(:list="items" :keyword="searchKeywords" :modelValue="hoverIndex"
     @overItem="overItem")
 </template>
 
@@ -25,21 +26,33 @@ import AutoCompleteList from '@/src/components/search/auto-complete-list.vue';
 
 // mixins or composition api
 import useAutoComplete from '@/src/mixins/auto-complete/use-auto-complete';
+import { isEmptyValue } from '@/src/helper/data-process';
 
 // helper
-
-const fakeResponse = ['貓貓蟲咖波', '貓貓蟲咖波: 奇幻太空之旅', '貓貓蟲咖波: 小萌物到處玩', '貓貓蟲咖波: 暖暖春天文具組, 陪你慵懶每一天', '貓貓蟲咖波: 縮小世界大冒險', '貓貓蟲咖波: 食物世界超棒'];
+const submitStopping = ({ searchKeywords }) => (event) => {
+  if (isEmptyValue(searchKeywords.value)) {
+    event.preventDefault();
+    return false;
+  }
+  event.preventDefault();
+  return false;
+  // return true;
+};
 
 const setup = function () {
   const searchKeywords = ref('');
-  const { hoverIndex, hoverItemName, keyDown, overItem } = useAutoComplete({ searchKeywords });
+  const { hoverIndex, hoverItemName, keyDown, keyUp, overItem, items } = useAutoComplete({ searchKeywords });
   return {
+    // data
     searchKeywords,
-    recommendList: fakeResponse,
     hoverIndex,
     hoverItemName,
+    items,
+    // methods
+    keyUp,
     keyDown,
     overItem,
+    submitStopping: submitStopping({ searchKeywords }),
   };
 };
 
