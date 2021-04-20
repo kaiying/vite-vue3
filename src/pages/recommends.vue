@@ -12,7 +12,8 @@
     input.form-control.w-75(v-model="searchKeywords" @keydown="keyDown")
     button.btn.btn-secondary -x-) |||
 .row.col-6
-  auto-complete-list.w-75(:list="recommendList" :keyword="searchKeywords")
+  auto-complete-list.w-75(:list="recommendList" :keyword="searchKeywords" :modelValue="hoverIndex"
+    @overItem="overItem")
 </template>
 
 <script>
@@ -31,12 +32,14 @@ const fakeResponse = ['貓貓蟲咖波', '貓貓蟲咖波: 奇幻太空之旅', 
 
 const setup = function () {
   const searchKeywords = ref('');
-  const { hoverIndex, keyDown } = useAutoComplete();
+  const { hoverIndex, hoverItemName, keyDown, overItem } = useAutoComplete({ searchKeywords });
   return {
     searchKeywords,
     recommendList: fakeResponse,
     hoverIndex,
+    hoverItemName,
     keyDown,
+    overItem,
   };
 };
 
