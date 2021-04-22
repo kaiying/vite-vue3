@@ -1,10 +1,9 @@
-import { computed, ref, onMounted } from 'vue';
-import { length, map, pipe, splitAt, dropLast } from 'ramda';
+import { computed, ref } from 'vue';
+import { length, dropLast, includes } from 'ramda';
 import { hoverDefaultIndex, arrowKeyEnum, specialKeyEnum } from '@/src/constant/search/auto-complete';
 import { isEmptyValue } from '@/src/helper/data-process';
-
-// fake data
-const fakeResponse = ['貓貓蟲咖波', '貓貓蟲咖波: 奇幻太空之旅', '貓貓蟲咖波: 小萌物到處玩', '貓貓蟲咖波: 暖暖春天文具組, 陪你慵懶每一天', '貓貓蟲咖波: 縮小世界大冒險', '貓貓蟲咖波: 食物世界超棒'];
+import { getLocalRecordsService, getLocalRecommends, setLocalRecommends } from '@/src/mixins/auto-complete/local-recommends';
+import { hoverIndex, hoverItemName, recommendItems, isShowRecommends } from '@/src/mixins/auto-complete/recommends-data';
 
 /**
  * computed
@@ -29,12 +28,12 @@ const keyDown = ({ hoverIndex }) => (event) => {
   if (event.key === arrowKeyEnum.up) hoverIndex.value -= 1;
 };
 
-const keyUp = ({ escapeInput, confirmHover }) => (event) => {
+const keyUp = ({ escapeInput, confirmHover, normalKeyProcess }) => (event) => {
+  console.log(event.key);
   if (event.key === specialKeyEnum.esc) {
     escapeInput();
   }
-
-  // this.normalKeyProcess(event);
+  normalKeyProcess(event);
   confirmHover(event);
 };
 
@@ -56,6 +55,29 @@ const overItem = ({ hoverIndex, hoverItemName }) => (recommend) => {
   hoverIndex.value = recommend.index;
   hoverItemName.value = recommend.text;
 };
+const normalKeyProcess = ({ isInvalidHover, hideRecommends }) => (event) => {
+  // special keys
+  if (event.key === specialKeyEnum.esc) return;
+  // isArrowUpDown
+  if (includes(event.key, [arrowKeyEnum.up, arrowKeyEnum.down])) return;
+
+  // [mac] 注音輸入法輸入中會以底線的方式 ___  先把完成的字咬住，最後搭配 `enter` 才將完整的字帶入 `this.query(input)`，所以這邊 enter 不能完全濾掉。
+  if (event.key === specialKeyEnum.enter && !isInvalidHover()) return;
+  // todo : check axios 能不能把後面拿掉
+  // if (event.key === specialKeyEnum.enter) return;
+
+  // console.log(event.key === specialKeyEnum.enter);
+  // console.log('isInvalidHover()', isInvalidHover(), ' ! ', !isInvalidHover());
+  // clear before
+  hideRecommends();
+
+  console.log('normalKeyProcess ==>', 'get!!');
+
+  // get recommends
+  // this.debounceGetRecommends(event);
+};
+
+// const getRecommends =
 
 /**
  * auto complete `display` control
@@ -77,15 +99,9 @@ const focusInput = ({ showRecommends }) => () => {
   showRecommends();
 };
 
-export default function ({ searchKeywords, searchButton }) {
-  // the hover recommend
-  const hoverIndex = ref(hoverDefaultIndex);
-  const hoverItemName = ref('');
-  // recommends source
-  const recommendItems = ref([]);
-  recommendItems.value = fakeResponse; // fake
-  // recommend list control
-  const isShowRecommends = ref(false);
+export default function ({ searchKeywords, searchButton, recommendKeywords }) {
+  // service
+  const localRecordsService = getLocalRecordsService();
 
   // computed
   const itemsComputed = items({ recommendItems });
@@ -103,13 +119,23 @@ export default function ({ searchKeywords, searchButton }) {
     isInvalidHover: isInvalidHoverMethod,
   });
   const focusInputMethod = focusInput({ showRecommends: showRecommendsMethod });
+  const normalKeyProcessMethod = normalKeyProcess({ isInvalidHover: isInvalidHoverMethod, hideRecommends: hideRecommendsMethod });
+  const getLocal = getLocalRecommends({ items, recommendKeywords, localService: localRecordsService });
+  const setLocal = setLocalRecommends({ searchKeywords, localService: localRecordsService });
+
+  // export
   return {
+    // data
     hoverIndex,
     hoverItemName,
     isShowRecommends,
+
+    // computed
     items: itemsComputed,
+
+    // methods
     keyDown: keyDown({ hoverIndex }),
-    keyUp: keyUp({ escapeInput: escapeInputMethod, confirmHover: confirmHoverMethod }),
+    keyUp: keyUp({ escapeInput: escapeInputMethod, confirmHover: confirmHoverMethod, normalKeyProcess: normalKeyProcessMethod }),
     overItem: overItem({ hoverIndex, hoverItemName }),
     focusInput: focusInputMethod,
   };
