@@ -1,6 +1,6 @@
 import { dropLast, pipe, length, ifElse, uniq, prepend } from 'ramda';
 import { LocalStorageKey } from '@/src/constant/local-storage';
-import { historyCount } from '@/src/constant/search/search';
+import { historyCount } from '@/src/constant/search/auto-complete';
 import { BrowserNotSupportException, browserNotSupportType } from '@/src/exceptions/browser-not-support-exception';
 
 /**

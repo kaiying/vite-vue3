@@ -18,6 +18,8 @@ export const specialKeyEnum = {
   esc: 'Escape',
 };
 
+export const historyCount = 5;
+
 export const specialKeys = [...values(arrowKeyEnum), specialKeyEnum.enter];
 
 export const hoverDefaultIndex = -1;
