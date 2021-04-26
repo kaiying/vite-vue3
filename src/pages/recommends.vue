@@ -1,9 +1,11 @@
 <template lang="pug">
 .test-display
-  span hover Index
-  h3 {{ undefined || 'none'}}
-  span v-model
-  h3 {{ searchKeywords }}
+  div
+    span v-model / searchKeywords
+    h4 {{searchKeywords}}
+  div
+    span recommendKeywords
+    h4 {{recommendKeywords}}
   div
     span hover Index
     h4 {{hoverIndex}}
@@ -18,23 +20,18 @@
 </template>
 
 <script>
-// package
-import { ref } from 'vue';
-
 // components
 import AutoCompleteList from '@/src/components/search/auto-complete-list.vue';
 
 // mixins or composition api
 import useAutoComplete from '@/src/mixins/auto-complete/use-auto-complete';
+import useDefineAutoCompleteData from '@/src/mixins/auto-complete/use-define-auto-complete-data';
 import { isEmptyValue } from '@/src/helper/data-process';
 
 // helper
 // x
 
 // methods
-const focusOther = () => () => {
-  // this.$refs.searchButton.focus();
-};
 const submitStopping = ({ searchKeywords }) => (event) => {
   if (isEmptyValue(searchKeywords.value)) {
     event.preventDefault();
@@ -46,16 +43,17 @@ const submitStopping = ({ searchKeywords }) => (event) => {
 };
 
 const setup = function (props, context) {
-  const searchButton = ref(null);
-  const searchKeywords = ref('');
-  const { isShowRecommends, hoverIndex, hoverItemName, keyDown, keyUp, overItem, items, focusInput } = useAutoComplete({ searchKeywords, searchButton });
+  const { searchKeywords, searchButton, recommendKeywords } = useDefineAutoCompleteData();
+  const { isShowRecommends, hoverIndex, hoverItemName, keyDown, keyUp, overItem, items, focusInput } = useAutoComplete({ searchKeywords, searchButton, recommendKeywords });
 
   return {
     // ref
     searchButton,
     // data
-    isShowRecommends,
     searchKeywords,
+    recommendKeywords,
+
+    isShowRecommends,
     hoverIndex,
     hoverItemName,
     items,

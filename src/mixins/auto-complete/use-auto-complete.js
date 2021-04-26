@@ -4,6 +4,8 @@ import { hoverDefaultIndex, arrowKeyEnum, specialKeyEnum } from '@/src/constant/
 import { isEmptyValue } from '@/src/helper/data-process';
 import { getLocalRecordsService, getLocalRecommends, setLocalRecommends } from '@/src/mixins/auto-complete/local-recommends';
 import { hoverIndex, hoverItemName, recommendItems, isShowRecommends } from '@/src/mixins/auto-complete/recommends-data';
+import { fetchRecommends } from '@/src/mixins/auto-complete/fetch-recommends';
+import { debounceGetRecommends } from '@/src/mixins/auto-complete/get-recommends';
 
 /**
  * computed
@@ -55,7 +57,7 @@ const overItem = ({ hoverIndex, hoverItemName }) => (recommend) => {
   hoverIndex.value = recommend.index;
   hoverItemName.value = recommend.text;
 };
-const normalKeyProcess = ({ isInvalidHover, hideRecommends }) => (event) => {
+const normalKeyProcess = ({ isInvalidHover, hideRecommends, getRecommends }) => (event) => {
   // special keys
   if (event.key === specialKeyEnum.esc) return;
   // isArrowUpDown
@@ -74,10 +76,8 @@ const normalKeyProcess = ({ isInvalidHover, hideRecommends }) => (event) => {
   console.log('normalKeyProcess ==>', 'get!!');
 
   // get recommends
-  // this.debounceGetRecommends(event);
+  getRecommends(event.target.value);
 };
-
-// const getRecommends =
 
 /**
  * auto complete `display` control
@@ -95,8 +95,8 @@ const escapeInput = ({ searchKeywords, searchButton, hideRecommends }) => () => 
   if (searchButton) searchButton.value.focus();
   hideRecommends();
 };
-const focusInput = ({ showRecommends }) => () => {
-  showRecommends();
+const focusInput = ({ getRecommends }) => () => {
+  getRecommends();
 };
 
 export default function ({ searchKeywords, searchButton, recommendKeywords }) {
@@ -118,10 +118,13 @@ export default function ({ searchKeywords, searchButton, recommendKeywords }) {
     hoverIndex,
     isInvalidHover: isInvalidHoverMethod,
   });
-  const focusInputMethod = focusInput({ showRecommends: showRecommendsMethod });
-  const normalKeyProcessMethod = normalKeyProcess({ isInvalidHover: isInvalidHoverMethod, hideRecommends: hideRecommendsMethod });
-  const getLocal = getLocalRecommends({ items, recommendKeywords, localService: localRecordsService });
-  const setLocal = setLocalRecommends({ searchKeywords, localService: localRecordsService });
+  const getLocal = getLocalRecommends({ items: itemsComputed, recommendKeywords, localService: localRecordsService });
+  // const setLocal = setLocalRecommends({ searchKeywords, localService: localRecordsService });
+  const getRemote = fetchRecommends({ searchKeywords, recommendKeywords, items: itemsComputed });
+  const getRecommends = debounceGetRecommends({ getLocal, getRemote, showRecommends: showRecommendsMethod });
+
+  const focusInputMethod = focusInput({ showRecommends: showRecommendsMethod, getRecommends });
+  const normalKeyProcessMethod = normalKeyProcess({ isInvalidHover: isInvalidHoverMethod, hideRecommends: hideRecommendsMethod, getRecommends });
 
   // export
   return {

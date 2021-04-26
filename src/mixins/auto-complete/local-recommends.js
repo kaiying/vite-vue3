@@ -1,7 +1,5 @@
 import LocalRecordsService from '@/src/services/search/local-records-service';
 import LocalStorageServices from '@/src/services/local-storage-services';
-import { isEmptyValue } from '@/src/helper/data-process';
-import { trim } from 'ramda';
 
 export const getLocalRecordsService = () => {
   try {
