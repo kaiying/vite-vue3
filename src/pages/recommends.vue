@@ -1,5 +1,7 @@
 <template lang="pug">
-.test-display
+.row.col-12
+  h1 auto complete
+//.test-display
   div
     span v-model / searchKeywords
     h4 {{searchKeywords}}
