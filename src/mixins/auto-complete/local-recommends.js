@@ -1,3 +1,7 @@
+/**
+ *  local recommends
+ *   - local storage 關鍵字存取
+ */
 import LocalRecordsService from '@/src/services/search/local-records-service';
 import LocalStorageServices from '@/src/services/local-storage-services';
 

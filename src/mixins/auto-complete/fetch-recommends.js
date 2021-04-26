@@ -1,3 +1,7 @@
+/**
+ *  fetch remote recommends
+ *  取得遠端關鍵字
+ */
 import axios from 'axios';
 import { dropLast, length } from 'ramda';
 import autoCompleteService from '@/src/services/search/auto-complete-service';

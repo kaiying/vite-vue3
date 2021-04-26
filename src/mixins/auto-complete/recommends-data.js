@@ -1,3 +1,7 @@
+/**
+ *  use-auto-complete.js 中，定義變數的部分
+ *   - vue data
+ */
 import { ref } from 'vue';
 import { hoverDefaultIndex } from '@/src/constant/search/auto-complete';
 

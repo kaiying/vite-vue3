@@ -1,3 +1,6 @@
+/**
+ *  mixin : recommends.vue
+ */
 import { computed, ref } from 'vue';
 import { length, dropLast, includes, values } from 'ramda';
 import { hoverDefaultIndex, arrowKeyEnum, specialKeyEnum } from '@/src/constant/search/auto-complete';

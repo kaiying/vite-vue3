@@ -1,3 +1,6 @@
+/**
+ *  取得關鍵字統整（local & remote）
+ */
 import { debounce } from 'lodash/function';
 import { trim } from 'ramda';
 import { isEmptyValue } from '@/src/helper/data-process';
