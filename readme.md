@@ -1,6 +1,10 @@
-# Vue3 auto complete practices
-**套件自行看 package.json**
-**尚未完成**
+# [Vue3] auto complete practices
+**套件自行看 package.json**，目前有使用到 `setup` 的部分
+* computed
+* watch
+* data (ref)
+* element ref
+* split file
 
 ## vue3 練習項目
 * main feature : auto complete using composition api
