@@ -111,9 +111,6 @@ const setup = function (props, context) {
 
     // methods
     classIsHover: classIsHover({ hover: hoverComputed }),
-    // setHover: setHoverMethod,
-    // emitCurrentItem: emitCurrentItemMethod,
-    // leaveMethod,
   };
 };
 export default {

@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue';
-import { length, dropLast, includes } from 'ramda';
+import { length, dropLast, includes, values } from 'ramda';
 import { hoverDefaultIndex, arrowKeyEnum, specialKeyEnum } from '@/src/constant/search/auto-complete';
 import { isEmptyValue } from '@/src/helper/data-process';
 import { getLocalRecordsService, getLocalRecommends, setLocalRecommends } from '@/src/mixins/auto-complete/local-recommends';
@@ -61,7 +61,7 @@ const normalKeyProcess = ({ isInvalidHover, hideRecommends, getRecommends }) => 
   if (event.key === specialKeyEnum.esc) return;
 
   // isArrowUpDown
-  if (includes(event.key, [arrowKeyEnum.up, arrowKeyEnum.down])) return;
+  if (includes(event.key, values(arrowKeyEnum))) return;
 
   // [mac] 注音輸入法輸入中會以底線的方式 ___  先把完成的字咬住，最後搭配 `enter` 才將完整的字帶入 `this.query(input)`，所以這邊 enter 不能完全濾掉。
   if (event.key === specialKeyEnum.enter && !isInvalidHover()) return;
