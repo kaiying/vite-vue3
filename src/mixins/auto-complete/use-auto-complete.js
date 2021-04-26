@@ -113,7 +113,6 @@ export default function ({ searchKeywords, searchButton, recommendKeywords }) {
     isInvalidHover: isInvalidHoverMethod,
   });
   const getLocal = getLocalRecommends({ items: itemsComputed, recommendKeywords, localService: localRecordsService });
-  // const setLocal = setLocalRecommends({ searchKeywords, localService: localRecordsService });
   const getRemote = fetchRecommends({ searchKeywords, recommendKeywords, items: itemsComputed });
   const getRecommends = debounceGetRecommends({ getLocal, getRemote, showRecommends: showRecommendsMethod });
 
@@ -135,5 +134,6 @@ export default function ({ searchKeywords, searchButton, recommendKeywords }) {
     keyUp: keyUp({ escapeInput: escapeInputMethod, confirmHover: confirmHoverMethod, normalKeyProcess: normalKeyProcessMethod }),
     overItem: overItem({ hoverIndex, hoverItemName }),
     focusInput: focusInputMethod,
+    setLocal: setLocalRecommends({ searchKeywords, localService: localRecordsService }),
   };
 }

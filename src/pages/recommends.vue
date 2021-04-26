@@ -28,21 +28,25 @@ import useAutoComplete from '@/src/mixins/auto-complete/use-auto-complete';
 import useDefineAutoCompleteData from '@/src/mixins/auto-complete/use-define-auto-complete-data';
 import { isEmptyValue } from '@/src/helper/data-process';
 
+// constant
+import { hoverDefaultIndex } from '@/src/constant/search/auto-complete';
+
 // helper
 // x
 
 // methods
-const submitStopping = ({ searchKeywords }) => (event) => {
+const submitStopping = ({ searchKeywords, hoverIndex, setLocal }) => (event) => {
   if (isEmptyValue(searchKeywords.value)) {
     event.preventDefault();
     return false;
   }
+  if (hoverIndex.value === hoverDefaultIndex) setLocal();
   return true;
 };
 
 const setup = function (props, context) {
   const { searchKeywords, searchButton, recommendKeywords } = useDefineAutoCompleteData();
-  const { isShowRecommends, hoverIndex, hoverItemName, keyDown, keyUp, overItem, items, focusInput } = useAutoComplete({ searchKeywords, searchButton, recommendKeywords });
+  const { isShowRecommends, hoverIndex, hoverItemName, keyDown, keyUp, overItem, items, focusInput, setLocal } = useAutoComplete({ searchKeywords, searchButton, recommendKeywords });
 
   return {
     // ref
@@ -59,7 +63,7 @@ const setup = function (props, context) {
     keyUp,
     keyDown,
     overItem,
-    submitStopping: submitStopping({ searchKeywords, searchButton }),
+    submitStopping: submitStopping({ searchKeywords, hoverIndex, setLocal }),
     focusInput,
   };
 };
