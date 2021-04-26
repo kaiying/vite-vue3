@@ -35,5 +35,8 @@ module.exports = {
     'vue/singleline-html-element-content-newline': 'off',
     'import/extensions': 'off',
     'no-return-assign': 'off',
+
+    // vue3 很多 export 沒辦法關聯到
+    'no-unused-vars': 'off',
   },
 };

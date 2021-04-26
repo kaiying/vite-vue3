@@ -1,5 +1,5 @@
-<template>
-  <h1>index</h1>
+<template lang="pug">
+h1 index
 </template>
 
 <script>
