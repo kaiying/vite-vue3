@@ -31,7 +31,6 @@ const keyDown = ({ hoverIndex }) => (event) => {
 };
 
 const keyUp = ({ escapeInput, confirmHover, normalKeyProcess }) => (event) => {
-  console.log(event.key);
   if (event.key === specialKeyEnum.esc) {
     escapeInput();
   }
@@ -60,20 +59,15 @@ const overItem = ({ hoverIndex, hoverItemName }) => (recommend) => {
 const normalKeyProcess = ({ isInvalidHover, hideRecommends, getRecommends }) => (event) => {
   // special keys
   if (event.key === specialKeyEnum.esc) return;
+
   // isArrowUpDown
   if (includes(event.key, [arrowKeyEnum.up, arrowKeyEnum.down])) return;
 
   // [mac] 注音輸入法輸入中會以底線的方式 ___  先把完成的字咬住，最後搭配 `enter` 才將完整的字帶入 `this.query(input)`，所以這邊 enter 不能完全濾掉。
   if (event.key === specialKeyEnum.enter && !isInvalidHover()) return;
-  // todo : check axios 能不能把後面拿掉
-  // if (event.key === specialKeyEnum.enter) return;
 
-  // console.log(event.key === specialKeyEnum.enter);
-  // console.log('isInvalidHover()', isInvalidHover(), ' ! ', !isInvalidHover());
   // clear before
   hideRecommends();
-
-  console.log('normalKeyProcess ==>', 'get!!');
 
   // get recommends
   getRecommends(event.target.value);

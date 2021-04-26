@@ -37,9 +37,7 @@ const submitStopping = ({ searchKeywords }) => (event) => {
     event.preventDefault();
     return false;
   }
-  event.preventDefault();
-  return false;
-  // return true;
+  return true;
 };
 
 const setup = function (props, context) {

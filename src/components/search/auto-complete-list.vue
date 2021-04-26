@@ -54,7 +54,6 @@ const emitCurrentItem = ({ emit, list }) => (index) => {
 };
 // 離開 auto complete list： reset hover 值
 const leave = ({ hover, emitCurrentItem }) => () => {
-  console.log(' leave', hover.value);
   hover.value = hoverDefaultIndex;
   emitCurrentItem(hoverDefaultIndex);
 };
