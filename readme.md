@@ -1,17 +1,24 @@
-# [Vue3] auto complete practices
-**套件自行看 package.json**，目前有使用到 `setup` 的部分
+## [auto complete] auto complete using composition api
+### `/pages/recommends.vue` -> route `/recommends`
 * computed
 * watch
 * data (ref)
 * element ref
 * split file
 
-## vue3 練習項目
-* main feature : auto complete using composition api
+## [lottie animation] using package `lottie-web`
+### `/pages/about.vue` route `/about`
+* install
+  ```shell
+  yarn add lottie-web
+  ```
+* using
+
+## others practice
 * vite vue router : `src/router.js`
 
-
-## 其他練習包含
+## package install
+**此處不全列，只挑幾個重點，請自行看 package.json**
 * eslint, prettier
 * lodash partial install (function) : see vite.config.js
 * bootstrap (style only) : see `src/assets/base-style.scss`
